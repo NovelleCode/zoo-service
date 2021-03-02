@@ -20,4 +20,8 @@ public class AnimalMapper {
         return new AnimalDto("Cat", cat.getId(), cat.getName(), cat.getType(), cat.getGender(), cat.getWeight());
     }
 
+    public AnimalDto mapp(FishDto fish) {
+        return new AnimalDto("Fish", cat.getId(), cat.getName(), cat.getType(), cat.getGender(), cat.getWeight());
+    }
+
 }

@@ -1,6 +1,7 @@
 package se.iths.zoo;
 
 import com.iths.labbspringboot.dtos.CatDto;
+import se.iths.weblab2.FishDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -33,7 +34,8 @@ public class Controller {
     public List<AnimalDto> zoo(){
         var cats = this.restTemplate.getForObject("http://cats-service/cats/", CatDto[].class);
         var birds = this.restTemplate.getForObject("http://birds-service/birds/", BirdDto[].class);
-        return zooService.convertToAnimals(cats, birds);
+        var fish = this.restTemplate.getForObject("http://fish-service/fish/", FishDto[].class);
+        return zooService.convertToAnimals(cats, birds, fish);
     }
 
     @Bean
