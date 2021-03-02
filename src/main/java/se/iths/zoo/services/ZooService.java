@@ -17,13 +17,16 @@ public class ZooService {
         this.animalMapper = animalMapper;
     }
 
-    public List<AnimalDto>  convertToAnimals(CatDto[] cats, BirdDto[] birds) {
+    public List<AnimalDto>  convertToAnimals(CatDto[] cats, BirdDto[] birds, FishDto[] fish) {
         List<AnimalDto> animals = new ArrayList<>();
         for(CatDto catDto : cats) {
             animals.add(animalMapper.mapp(catDto));
         }
         for(BirdDto birdDto : birds) {
             animals.add(animalMapper.mapp(birdDto));
+        }
+        for(FishDto fishDto : fish) {
+            animals.add(animalMapper.mapp(fishDto));
         }
         return animals;
     }
