@@ -21,7 +21,7 @@ public class AnimalMapper {
     }
 
     public AnimalDto mapp(FishDto fish) {
-        return new AnimalDto("Fish", cat.getId(), cat.getName(), cat.getType(), cat.getGender(), cat.getWeight());
+        return new AnimalDto("Fish", fish.getId(), fish.getName(), fish.getType(), fish.getGender(), fish.getWeight());
     }
 
 }
