@@ -4,7 +4,7 @@ import com.iths.labbspringboot.dtos.CatDto;
 import org.springframework.stereotype.Component;
 import se.iths.bird.dtos.BirdDto;
 
-import se.iths.weblab2.FishDto;
+import se.iths.weblab2.dtos.FishDto;
 import se.iths.zoo.entities.AnimalDto;
 
 

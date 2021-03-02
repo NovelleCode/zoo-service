@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 import se.iths.bird.dtos.BirdDto;
-import se.iths.weblab2.FishDto;
+import se.iths.weblab2.dtos.FishDto;
 import se.iths.zoo.entities.AnimalDto;
 import se.iths.zoo.mappers.AnimalMapper;
 
@@ -58,6 +58,7 @@ public class Controller {
 
         var cats = this.restTemplate.getForObject("http://cats-consul/cats/search?gender=" + gender, CatDto[].class);
         var birds = this.restTemplate.getForObject("http://birds-service/birds/search?gender=" + gender, BirdDto[].class);
+        var fish = this.restTemplate.getForObject("http://fish-service/fish/search?gender=" + gender, FishDto[].class);
 
         List<AnimalDto> animals = new ArrayList<>();
 
@@ -66,6 +67,9 @@ public class Controller {
         }
         for (BirdDto birdDto : birds) {
             animals.add(animalMapper.mapp(birdDto));
+        }
+        for (FishDto fishDto : fish) {
+            animals.add(animalMapper.mapp(fishDto));
         }
         return animals;
     }
