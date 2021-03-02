@@ -1,17 +1,17 @@
 package se.iths.zoo;
 
 import com.iths.labbspringboot.dtos.CatDto;
-import com.iths.labbspringboot.entities.Cat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 import se.iths.bird.dtos.BirdDto;
-import se.iths.bird.entities.Bird;
-import se.iths.bird.mappers.BirdMapper;
-import se.iths.bird.repositories.BirdRepository;
 import se.iths.weblab2.FishDto;
 import se.iths.zoo.entities.AnimalDto;
 import se.iths.zoo.mappers.AnimalMapper;
@@ -36,7 +36,7 @@ public class Controller {
     public List<AnimalDto> zoo(){
         List<AnimalDto> animals = new ArrayList<>();
 
-        var cats = this.restTemplate.getForObject("http://cats-service/cats/", CatDto[].class);
+        var cats = this.restTemplate.getForObject("http://cats-consul/cats/", CatDto[].class);
         var birds = this.restTemplate.getForObject("http://birds-service/birds/", BirdDto[].class);
         var fishes = this.restTemplate.getForObject("http://fish-service/fish/", FishDto[].class);
 
@@ -52,6 +52,24 @@ public class Controller {
 
         return animals;
     }
+
+    @GetMapping(value = "/getzoo/search", params = "gender")
+    public List<AnimalDto> getAnimalsByGender(@RequestParam String gender){
+
+        var cats = this.restTemplate.getForObject("http://cats-consul/cats/search?gender=" + gender, CatDto[].class);
+        var birds = this.restTemplate.getForObject("http://birds-service/birds/search?gender=" + gender, BirdDto[].class);
+
+        List<AnimalDto> animals = new ArrayList<>();
+
+        for (CatDto catDto : cats) {
+            animals.add(animalMapper.mapp(catDto));
+        }
+        for (BirdDto birdDto : birds) {
+            animals.add(animalMapper.mapp(birdDto));
+        }
+        return animals;
+    }
+
 
     @Bean
     @LoadBalanced
