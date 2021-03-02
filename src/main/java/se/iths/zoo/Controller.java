@@ -12,6 +12,7 @@ import se.iths.bird.dtos.BirdDto;
 import se.iths.bird.entities.Bird;
 import se.iths.bird.mappers.BirdMapper;
 import se.iths.bird.repositories.BirdRepository;
+import se.iths.weblab2.FishDto;
 import se.iths.zoo.entities.AnimalDto;
 import se.iths.zoo.mappers.AnimalMapper;
 
@@ -37,6 +38,7 @@ public class Controller {
 
         var cats = this.restTemplate.getForObject("http://cats-service/cats/", CatDto[].class);
         var birds = this.restTemplate.getForObject("http://birds-service/birds/", BirdDto[].class);
+        var fishes = this.restTemplate.getForObject("http://fish-service/fish/", FishDto[].class);
 
         for(CatDto catDto : cats) {
             animals.add(animalMapper.mapp(catDto));
@@ -44,6 +46,10 @@ public class Controller {
         for(BirdDto birdDto : birds) {
             animals.add(animalMapper.mapp(birdDto));
         }
+        for(FishDto fishDto : fishes) {
+            animals.add(animalMapper.mapp(fishDto));
+        }
+
         return animals;
     }
 
