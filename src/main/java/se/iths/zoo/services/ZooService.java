@@ -1,6 +1,8 @@
 package se.iths.zoo.services;
 
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import se.iths.zoo.dtos.*;

@@ -10,6 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import se.iths.zoo.dtos.*;
 import se.iths.zoo.services.ZooService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,19 +21,17 @@ public class Controller {
 
     private final ZooService zooService;
 
-
     public Controller(ZooService zooService) {
         this.zooService = zooService;
     }
 
-
     @GetMapping("/zoo")
     public List<AnimalDto> zoo() {
 
-        var cats = this.restTemplate.getForObject("http://cats-consul/cats/", CatDto[].class);
+        var cats = this.restTemplate.getForObject("http://cats-service/cats/", CatDto[].class);
         var birds = this.restTemplate.getForObject("http://birds-service/birds/", BirdDto[].class);
         var fishes = this.restTemplate.getForObject("http://fish-service/fish/", FishDto[].class);
-        var snakes = this.restTemplate.getForObject("http://snake-service/snake/", SnakeDto[].class);
+        var snakes = this.restTemplate.getForObject("http://snake-service/snakes/", SnakeDto[].class);
 
         return zooService.convertToAnimals(cats, birds, fishes, snakes);
 
@@ -41,13 +40,15 @@ public class Controller {
     @GetMapping(value = "/zoo/search", params = "gender")
     public List<AnimalDto> getAnimalsByGender(@RequestParam String gender) {
 
-        var cats = this.restTemplate.getForObject("http://cats-consul/cats/search?gender=" + gender, CatDto[].class);
+        var cats = this.restTemplate.getForObject("http://cats-service/cats/search?gender=" + gender, CatDto[].class);
         var birds = this.restTemplate.getForObject("http://birds-service/birds/search?gender=" + gender, BirdDto[].class);
         var fish = this.restTemplate.getForObject("http://fish-service/fish/search?gender=" + gender, FishDto[].class);
-        var snakes = this.restTemplate.getForObject("http://snake-service/snake/search?gender=" + gender, SnakeDto[].class);
+        var snakes = this.restTemplate.getForObject("http://snake-service/snakes/search?gender=" + gender, SnakeDto[].class);
 
         return zooService.convertToAnimals(cats, birds, fish, snakes);
     }
+
+
 
 
     @Bean
