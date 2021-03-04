@@ -1,10 +1,9 @@
 package se.iths.zoo.services;
 
-import com.iths.labbspringboot.dtos.CatDto;
+
 import org.springframework.stereotype.Service;
-import se.iths.bird.dtos.BirdDto;
-import se.iths.weblab2.dtos.FishDto;
-import se.iths.zoo.entities.AnimalDto;
+
+import se.iths.zoo.dtos.*;
 import se.iths.zoo.mappers.AnimalMapper;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class ZooService {
         this.animalMapper = animalMapper;
     }
 
-    public List<AnimalDto>  convertToAnimals(CatDto[] cats, BirdDto[] birds, FishDto[] fish) {
+    public List<AnimalDto>  convertToAnimals(CatDto[] cats, BirdDto[] birds, FishDto[] fish, SnakeDto[] snakes) {
         List<AnimalDto> animals = new ArrayList<>();
         for(CatDto catDto : cats) {
             animals.add(animalMapper.mapp(catDto));
@@ -28,6 +27,9 @@ public class ZooService {
         }
         for(FishDto fishDto : fish) {
             animals.add(animalMapper.mapp(fishDto));
+        }
+        for (SnakeDto snakeDto : snakes){
+            animals.add(animalMapper.mapp(snakeDto));
         }
         return animals;
     }

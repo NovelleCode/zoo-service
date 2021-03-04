@@ -1,20 +1,21 @@
-package se.iths.zoo.entities;
+package se.iths.zoo.dtos;
 
-public class AnimalDto {
-    private String animalType;
+public class BirdDto {
     private int id;
     private String name;
     private String type;
-    private String gender;
     private double weight;
+    private String gender;
 
-    public AnimalDto(String animalType, int id, String name, String type, String gender, double weight) {
-        this.animalType = animalType;
+    public BirdDto(int id, String name, String type, double weight, String gender) {
         this.id = id;
         this.name = name;
         this.type = type;
-        this.gender = gender;
         this.weight = weight;
+        this.gender = gender;
+    }
+
+    public BirdDto() {
     }
 
     public int getId() {
@@ -41,14 +42,6 @@ public class AnimalDto {
         this.type = type;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public double getWeight() {
         return weight;
     }
@@ -57,11 +50,13 @@ public class AnimalDto {
         this.weight = weight;
     }
 
-    public String getAnimalType() {
-        return animalType;
+    public String getGender() {
+        return gender;
     }
 
-    public void setAnimalType(String animalType) {
-        this.animalType = animalType;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
+
+
 }
