@@ -16,6 +16,9 @@ public class SnakeDto {
         this.gender = gender;
     }
 
+    public SnakeDto() {
+    }
+
     public int getId() {
         return id;
     }
