@@ -10,10 +10,10 @@ import org.springframework.web.client.RestTemplate;
 import se.iths.zoo.dtos.*;
 import se.iths.zoo.services.ZooService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+
 public class Controller {
 
     @Autowired
@@ -27,7 +27,6 @@ public class Controller {
 
     @GetMapping("/zoo")
     public List<AnimalDto> zoo() {
-
         var cats = this.restTemplate.getForObject("http://cats-service/cats/", CatDto[].class);
         var birds = this.restTemplate.getForObject("http://birds-service/birds/", BirdDto[].class);
         var fishes = this.restTemplate.getForObject("http://fish-service/fish/", FishDto[].class);
@@ -47,8 +46,6 @@ public class Controller {
 
         return zooService.convertToAnimals(cats, birds, fish, snakes);
     }
-
-
 
 
     @Bean
